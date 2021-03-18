@@ -1,5 +1,5 @@
-import os, requests
-from flask import Flask, render_template
+import os
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -16,13 +16,15 @@ def about():
 
 @app.route("/record")
 def record():
-	return render_template("record.html")
+    return render_template("record.html")
 
 @app.route("/upload", methods=['POST'])
 def upload():
-	print("receive upload request")
-	# TODO: Process audio
-	return 'Success', 200
+    f = request.files['file']
+    with open('audio/recording.wav', 'wb') as audio:
+        f.save(audio)
+    print('Saved audio file')
+    return 'Success', 200
 
 if __name__ == "__main__":
     app.run(debug=True)

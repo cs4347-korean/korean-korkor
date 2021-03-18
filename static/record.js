@@ -70,6 +70,8 @@ function startRecording() {
 		//start the recording process
 		rec.record()
 
+		document.getElementById("recordingContainer").innerHTML = 'Recording in progress...';
+
 		console.log("Recording started");
 	}).catch(function(err) {
 		console.log(err);
@@ -97,7 +99,7 @@ function stopRecording() {
 	rec.exportWAV(createDownloadLink);
 }
 
-function uploadRecording() {
+async function uploadRecording() {
 	console.log("uploadButton clicked");
 
 	var xmlhttp = new XMLHttpRequest();
@@ -117,7 +119,9 @@ function uploadRecording() {
     };
 	
 	var fd = new FormData();
-	// TODO: Append audio data
+	var url = document.getElementsByTagName("audio")[0].getAttribute("src");
+	let blob = await fetch(url).then(r => r.blob());
+	fd.append('file', blob);
 	
 	xmlhttp.open("POST", "/upload", true);
 	xmlhttp.send(fd);

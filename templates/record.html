@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>About Us</title>
+    <title>Record</title>
   </head>
   <body>
     {% extends "template.html" %}
@@ -16,8 +16,8 @@
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h5 class="card-title">내 가족</h5>
-            <p class="card-text">
-              제 가족은 모두 여덟 명이에요. 부모님, 누나, 형, 남동생 두 명, 여동생 한 명이 있어요. 집에 부모님, 저, 동생이 있어요. 하지만 누나는 지금 일본에 있어요. 누나는 회사원이에요. 형은 요리사예요. 저, 제 동생은 모두 대학교에 다녀요. 저는 책을 좋아해요. 그래서 책을 많이 읽어요. 제 방은 아주 깨끗해요. 그리고 커요. 제 방에 한국 가수 사진이 있어요. 그 가수는 아주 예뻐요. 저는 그 가수 노래를 자주 들어요. 노래가 아주 좋아요.
+            <p class="card-text" id="canonical">
+              제 가족은 모두 여덟 명이에요. 부모님, 누나, 형, 남동생 두 명, 여동생 한 명이 있어요.
             </p>
           </div>
         </div>
@@ -39,6 +39,18 @@
             <button disabled id="uploadButton" type="button" class="btn btn-success">
               <i class="fa fa-upload" aria-hidden="true"></i> Upload
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 d-flex justify-content-center">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h5 class="card-title">Results</h5>
+            <p class="card-text">
+              <span id="transcription">Your result will appear here when you upload your recording!</span><br/>
+              <span id="confidence"></span>
+            </p>
           </div>
         </div>
       </div>

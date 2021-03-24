@@ -24,6 +24,8 @@ var blob;
 function startRecording() {
 	console.log("recordButton clicked");
 	document.getElementById("recordingContainer").innerHTML = '';
+	document.getElementById("transcription").innerHTML = 'Your result will appear here when you upload your recording!';
+	document.getElementById("confidence").innerHTML = '';
 
 	/*
 		Simple constraints object, for more advanced audio features see

@@ -63,10 +63,19 @@ def upload():
 
     matched_text = align(cleaned_canonical, cleaned_trans, "*")
 
+    # Count the number of correct characters
+    correct = 0
+    for pair in matched_text:
+    	if pair[0] == pair[1]:
+    		correct += 1
+    score = correct/len(matched_text)
+
+
     to_return = {
         "transcription": trans,
         "confidence": conf,
-        "matched_text": matched_text
+        "matched_text": matched_text,
+        "score": score
     }
 
     # Save file in database for analysis purpose

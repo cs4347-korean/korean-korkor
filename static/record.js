@@ -25,6 +25,7 @@ function startRecording() {
 	console.log("recordButton clicked");
 	document.getElementById("recordingContainer").innerHTML = '';
 	document.getElementById("transcription").innerHTML = 'Your result will appear here when you upload your recording!';
+	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
 
 	/*
@@ -161,7 +162,7 @@ function showResults(json) {
 	var list = json.matched_text;
 	var canonical = document.getElementById('canonical').innerHTML;
 	var korRegex = "[\uac00-\ud7a3]";
-	var finalText = '<strong>Transcription: </strong>';
+	var finalText = '<strong>Evaluated transcription: </strong>';
 	var listCount = 0;
 
 	// Process the text
@@ -182,12 +183,14 @@ function showResults(json) {
 	}
 	
 	document.getElementById("transcription").innerHTML = finalText;
-	document.getElementById("confidence").innerHTML = '<strong>Confidence: </strong>' + json.confidence;
+	document.getElementById("user-transcription").innerHTML = '<strong>What you read: </strong>' + json.transcription;
+	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
 	document.getElementById("recordingContainer").innerHTML = '';
 }
 
 function showError() {
 	document.getElementById("transcription").innerHTML = 'An error has occurred. Please try recording again!';
+	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
 	document.getElementById("recordingContainer").innerHTML = '';
 }

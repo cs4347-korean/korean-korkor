@@ -27,6 +27,11 @@ function startRecording() {
 	document.getElementById("transcription").innerHTML = 'Your result will appear here when you upload your recording!';
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
+	document.getElementById("ros").innerHTML = '';
+	document.getElementById("ar").innerHTML = '';
+	document.getElementById("ptr").innerHTML = '';
+	document.getElementById("wpm").innerHTML = '';
+	document.getElementById("wcpm").innerHTML = '';
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -185,6 +190,11 @@ function showResults(json) {
 	document.getElementById("transcription").innerHTML = finalText;
 	document.getElementById("user-transcription").innerHTML = '<strong>What you read: </strong>' + json.transcription;
 	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
+	document.getElementById("ros").innerHTML = '<strong>Rate of Speech: </strong>' + json.ROS;
+	document.getElementById("ar").innerHTML = '<strong>Articulation Rate: </strong>' + json.AR;
+	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + json.PTR;
+	document.getElementById("wpm").innerHTML = '<strong>Word Per Minute: </strong>' + json.WPM;
+	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + json.WCPM;
 	document.getElementById("recordingContainer").innerHTML = '';
 }
 
@@ -193,4 +203,9 @@ function showError() {
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
 	document.getElementById("recordingContainer").innerHTML = '';
+	document.getElementById("ros").innerHTML = '';
+	document.getElementById("ar").innerHTML = '';
+	document.getElementById("ptr").innerHTML = '';
+	document.getElementById("wpm").innerHTML = '';
+	document.getElementById("wcpm").innerHTML = '';
 }

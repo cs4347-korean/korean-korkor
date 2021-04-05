@@ -32,6 +32,8 @@ function startRecording() {
 	document.getElementById("ptr").innerHTML = '';
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
+	document.getElementById("ppm").innerHTML = '';
+        document.getElementById("pcpm").innerHTML = '';
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -195,6 +197,8 @@ function showResults(json) {
 	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + json.PTR;
 	document.getElementById("wpm").innerHTML = '<strong>Word Per Minute: </strong>' + json.WPM;
 	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + json.WCPM;
+	document.getElementById("ppm").innerHTML = '<strong>Phoneme Per Minute: </strong>' + json.PPM;
+        document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + json.PCPM;
 	document.getElementById("recordingContainer").innerHTML = '';
 }
 
@@ -208,4 +212,6 @@ function showError() {
 	document.getElementById("ptr").innerHTML = '';
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
+	document.getElementById("ppm").innerHTML = '';
+        document.getElementById("pcpm").innerHTML = '';
 }

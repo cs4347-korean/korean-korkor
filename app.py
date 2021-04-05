@@ -131,6 +131,27 @@ def upload():
     # Calculate WPM and words correct per minute
     wpm = len(cleaned_trans)/(stats['duration']/60)
     wcpm = correct/(stats['duration']/60)
+    
+    # Generate phonemes from characters
+    os.chdir("../kaldi/egs/zeroth_korean/s5/KoG2P-master-cs4347")
+    subprocess.call(["python", "get_phonemes.py", "../test_prod/new/003/117/117_003.trans.txt", "../exp/tri4/decode_tgsmall_new/one_best_transcription.txt"])
+
+    canonical_phoneme = open("output1.txt", "r").read()
+    transcribed_phoneme = open("output2.txt", "r").read()
+
+    os.chdir("../../../../../korean-korkor")
+    print('Done getting phonemes')
+
+    # Match phonemes
+    matched_phonemes = align(canonical_phoneme.split(), transcribed_phoneme.split(), "*")
+    correct_phonemes = 0
+    for pair in matched_phonemes:
+        if pair[0] == pair[1]:
+            correct_phonemes += 1
+
+    # Calculate PPM and phonemes correct per minute
+    ppm = len(transcribed_phoneme.split())/(stats['duration']/60)
+    pcpm = correct_phonemes/(stats['duration']/60)
 
     to_return = {
         "transcription": trans,
@@ -142,7 +163,10 @@ def upload():
         "PTR": stats["PTR"],
         "WPM": wpm,
         "WCPM": wcpm,
+        "PPM": ppm,
+        "PCPM": pcpm,
     }
+    print(to_return)
 
     # Save file in database for analysis purpose
     filename = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')

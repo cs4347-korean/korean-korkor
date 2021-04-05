@@ -9,16 +9,16 @@
     {% block content %}
 
     <div class="text-center">
-	    <h1> Recording Interface </h1>
-	    <p>Read the passage below and get evaluation results from the server!</p>
+      <h1> Recording Interface </h1>
+      <p>Read the passage below and get evaluation results from the server!</p>
 	    
       <div class="d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h5 class="card-title">내 가족</h5>
             <p class="card-text" id="canonical">
-              제 가족은 모두 여덟 명이에요. 부모님, 누나, 형, 남동생 두 명, 여동생 한 명이 있어요.
-            </p>
+	      제 가족은 모두 여덟 명이에요. 부모님, 누나, 형, 남동생 두 명, 여동생 한 명이 있어요.
+	    </p>
           </div>
         </div>
       </div>
@@ -43,24 +43,26 @@
         </div>
       </div>
 
-      <div class="mt-3 d- flex justify-content-center">
+      <div class="mt-3 d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h5 class="card-title">Results</h5>
             <p class="card-text">
               <span id="transcription">Your result will appear here when you upload your recording!</span><br/>
               <span id="user-transcription"></span><br/>
-              <span id="confidence"></span>
-              <span id="ros"></span>
-              <span id="ar"></span>
-              <span id="ptr"></span>
-              <span id="wpm"></span>
-              <span id="wcpm"></span>
+	      <span id="confidence"></span><br/>
+	      <span id="ros"></span><br/>
+	      <span id="ar"></span><br/>
+	      <span id="ptr"></span><br/>
+	      <span id="wpm"></span><br/>
+	      <span id="wcpm"></span><br/>
+	      <span id="ppm"></span><br/>
+	      <span id="pcpm"></span>
             </p>
           </div>
         </div>
       </div>
-	  </div>
+    </div>
 
     <!-- inserting these scripts at the end to be able to use all the elements in the DOM --> 
     <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>

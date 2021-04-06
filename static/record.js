@@ -27,6 +27,9 @@ function startRecording() {
 	document.getElementById("transcription").innerHTML = 'Your result will appear here when you upload your recording!';
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
+	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-user-transcription").innerHTML = '';
+	document.getElementById("google-confidence").innerHTML = '';
 	document.getElementById("ros").innerHTML = '';
 	document.getElementById("ar").innerHTML = '';
 	document.getElementById("ptr").innerHTML = '';
@@ -169,7 +172,7 @@ function showResults(json) {
 	var list = json.matched_text;
 	var canonical = document.getElementById('canonical').innerHTML;
 	var korRegex = "[\uac00-\ud7a3]";
-	var finalText = '<strong>Evaluated transcription: </strong>';
+	var finalText = '<strong>Evaluated transcription (based on Kaldi): </strong>';
 	var listCount = 0;
 
 	// Process the text
@@ -188,17 +191,41 @@ function showResults(json) {
 			finalText += currChar
 		}
 	}
+
+	var googleList = json.google_matched_text;
+	var finalGoogleText = '<strong>Evaluated transcription (based on Google): </strong>';
+	listCount = 0;  // reset listCount
+
+	// Process the text
+	for (let i = 0; i < canonical.length; i++) {
+		var currChar = canonical[i];
+		if (currChar.match(korRegex)) {  // Only match the Korean characters
+			var pair = googleList[listCount];
+			if (pair[0] == pair[1]) {
+				finalGoogleText += pair[0]
+			} else {
+				finalGoogleText += '<strong class="text-danger">' + pair[0] + '</strong>'
+			}
+
+			listCount++;
+		} else {  // It is a punctuation, space, etc
+			finalGoogleText += currChar
+		}
+	}
 	
 	document.getElementById("transcription").innerHTML = finalText;
-	document.getElementById("user-transcription").innerHTML = '<strong>What you read: </strong>' + json.transcription;
-	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
-	document.getElementById("ros").innerHTML = '<strong>Rate of Speech: </strong>' + json.ROS;
-	document.getElementById("ar").innerHTML = '<strong>Articulation Rate: </strong>' + json.AR;
-	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + json.PTR;
-	document.getElementById("wpm").innerHTML = '<strong>Word Per Minute: </strong>' + json.WPM;
-	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + json.WCPM;
-	document.getElementById("ppm").innerHTML = '<strong>Phoneme Per Minute: </strong>' + json.PPM;
-        document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + json.PCPM;
+	document.getElementById("user-transcription").innerHTML = '<strong>What you read (based on Kaldi): </strong>' + json.transcription;
+	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score (based on Kaldi): </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
+	document.getElementById("google-transcription").innerHTML = finalGoogleText;
+	document.getElementById("google-user-transcription").innerHTML = '<strong>What you read (based on Google): </strong>' + json.google_transcription;
+	document.getElementById("google-confidence").innerHTML = '<strong>Pronunciation score (based on Google): </strong>' + Math.round((json.google_confidence * json.google_score * 100) * 100) / 100 + ' out of 100';
+	document.getElementById("ros").innerHTML = '<strong>Rate of Speech: </strong>' + Math.round(json.ROS * 100) / 100;
+	document.getElementById("ar").innerHTML = '<strong>Articulation Rate: </strong>' + Math.round(json.AR * 100) / 100;
+	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + Math.round(json.PTR * 100) / 100;
+	document.getElementById("wpm").innerHTML = '<strong>Word Per Minute: </strong>' + Math.round(json.WPM * 100) / 100;
+	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + Math.round(json.WCPM * 100) / 100;
+	document.getElementById("ppm").innerHTML = '<strong>Phoneme Per Minute: </strong>' + Math.round(json.PPM * 100) / 100;
+        document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + Math.round(json.PCPM * 100) / 100;
 	document.getElementById("recordingContainer").innerHTML = '';
 }
 
@@ -207,6 +234,9 @@ function showError() {
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
 	document.getElementById("recordingContainer").innerHTML = '';
+	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-user-transcription").innerHTML = '';
+	document.getElementById("google-confidence").innerHTML = '';
 	document.getElementById("ros").innerHTML = '';
 	document.getElementById("ar").innerHTML = '';
 	document.getElementById("ptr").innerHTML = '';

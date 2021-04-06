@@ -31,6 +31,56 @@ def upload():
     wav_file = request.files['file']
     canonical = request.form['canonical'].strip()
 
+    #################################
+    ### GOOGLE SPEECH-TO-TEXT API ###
+    #################################
+
+    # Get pure hangeul
+    cleaned_canonical = ""
+    for char in canonical:
+        if re.match("[\uac00-\ud7a3]", char):
+            cleaned_canonical += char
+
+    # For Google STT API
+    base64_str = b64encode(wav_file.read()).decode('utf-8')
+    url = 'https://speech.googleapis.com/v1p1beta1/speech:recognize?key=' + google_api_key
+    json_body = {
+        "audio": {
+            "content": base64_str
+        },
+        "config": {
+            "enableAutomaticPunctuation": False,
+            "encoding": "LINEAR16",
+            "languageCode": "ko-KR",
+            "model": "default"
+        }
+    }
+
+    res = requests.post(url, data=json.dumps(json_body))
+    
+    # Get the transcription with the highest confidence
+    google_trans = res.json()['results'][0]['alternatives'][0]['transcript']
+    google_conf = res.json()['results'][0]['alternatives'][0]['confidence']
+
+    # Clean transcript
+    cleaned_trans = ""
+    for char in google_trans:
+        if re.match("[\uac00-\ud7a3]", char):
+            cleaned_trans += char
+
+    google_matched_text = align(cleaned_canonical, cleaned_trans, "*")
+
+    # Count the number of correct characters
+    correct = 0
+    for pair in google_matched_text:
+        if pair[0] == pair[1]:
+            correct += 1
+    google_score = correct/len(google_matched_text)
+    
+    #################################
+    ### KALDI BASED TRANSCRIPTION ###
+    #################################
+
     # Create the AUDIO_INFO file in test_prod
     f = open("../kaldi/egs/zeroth_korean/s5/test_prod/AUDIO_INFO", "w")
     f.write("SPEAKERID|NAME|SEX|SCRIPTID|DATASET\n")
@@ -80,35 +130,6 @@ def upload():
     stats['duration'] = float(arr[13:-1])  # Similar format to transcription
     f.close()
 
-    # Get pure hangeul
-    cleaned_canonical = ""
-    for char in canonical:
-        if re.match("[\uac00-\ud7a3]", char):
-            cleaned_canonical += char
-    
-    # For Google STT API
-    '''
-    base64_str = b64encode(wav_file.read()).decode('utf-8')
-    url = 'https://speech.googleapis.com/v1p1beta1/speech:recognize?key=' + google_api_key
-    json_body = {
-        "audio": {
-            "content": base64_str
-        },
-        "config": {
-            "enableAutomaticPunctuation": False,
-            "encoding": "LINEAR16",
-            "languageCode": "ko-KR",
-            "model": "default"
-        }
-    }
-
-    res = requests.post(url, data=json.dumps(json_body))
-    
-    # Get the transcription with the highest confidence
-    trans = res.json()['results'][0]['alternatives'][0]['transcript']
-    conf = res.json()['results'][0]['alternatives'][0]['confidence']
-    '''
-
     # Using kaldi results
     trans = stats['transcription']
     conf = 1  # Kaldi does not generate confidence
@@ -154,6 +175,10 @@ def upload():
     pcpm = correct_phonemes/(stats['duration']/60)
 
     to_return = {
+        "google_transcription": google_trans,
+        "google_confidence": google_conf,
+        "google_matched_text": google_matched_text,
+        "google_score": google_score,
         "transcription": trans,
         "confidence": conf,
         "matched_text": matched_text,
@@ -175,6 +200,6 @@ def upload():
     print('Saved audio file')
     
     return make_response(jsonify(to_return), 200)
-
+    
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=80)

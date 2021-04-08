@@ -76,6 +76,7 @@ def upload():
         if pair[0] == pair[1]:
             correct += 1
     google_score = correct/len(google_matched_text)
+    print('Google STT call successful')
     
     #################################
     ### KALDI BASED TRANSCRIPTION ###
@@ -95,6 +96,7 @@ def upload():
     print('Created canonical transcript')
 
     # Do the necessary conversion: 44.1kHz wav -> 16kHz flac
+    wav_file.seek(0)  # Return the pointer to the beginning
     data, samplingrate = librosa.load(wav_file, sr=16000)  # Downsampling
     sf.write('../kaldi/egs/zeroth_korean/s5/test_prod/new/003/117/117_003_0008.flac', data, samplingrate, format='flac')  # Save FLAC in the right directory
     print('Created FLAC file')

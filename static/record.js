@@ -19,6 +19,36 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 uploadButton.addEventListener("click", uploadRecording);
 
+// Sample change button
+var sample1Button = document.getElementById("sample1");
+var sample2Button = document.getElementById("sample2");
+var sample3Button = document.getElementById("sample3");
+
+sample1Button.addEventListener("click", changeToSampleOne);
+sample2Button.addEventListener("click", changeToSampleTwo);
+sample3Button.addEventListener("click", changeToSampleThree);
+
+function changeToSampleOne() {
+	document.getElementById("canonical").innerHTML = "제 가족은 모두 여덟 명이에요. 부모님, 누나, 형, 남동생 두 명, 여동생 한 명이 있어요.";
+	sample1Button.classList.add("active");
+	sample2Button.classList.remove("active");
+	sample3Button.classList.remove("active");
+}
+
+function changeToSampleTwo() {
+	document.getElementById("canonical").innerHTML = "집에 부모님, 저, 동생이 있어요. 하지만 누나는 지금 일본에 있어요.";
+	sample1Button.classList.remove("active");
+	sample2Button.classList.add("active");
+	sample3Button.classList.remove("active");
+}
+
+function changeToSampleThree() {
+	document.getElementById("canonical").innerHTML = "누나는 회사원이에요. 형은 요리사예요.";
+	sample1Button.classList.remove("active");
+	sample2Button.classList.remove("active");
+	sample3Button.classList.add("active");
+}
+
 var blob;
 
 function startRecording() {
@@ -36,7 +66,7 @@ function startRecording() {
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
 	document.getElementById("ppm").innerHTML = '';
-        document.getElementById("pcpm").innerHTML = '';
+    document.getElementById("pcpm").innerHTML = '';
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -225,7 +255,7 @@ function showResults(json) {
 	document.getElementById("wpm").innerHTML = '<strong>Word Per Minute: </strong>' + Math.round(json.WPM * 100) / 100;
 	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + Math.round(json.WCPM * 100) / 100;
 	document.getElementById("ppm").innerHTML = '<strong>Phoneme Per Minute: </strong>' + Math.round(json.PPM * 100) / 100;
-        document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + Math.round(json.PCPM * 100) / 100;
+    document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + Math.round(json.PCPM * 100) / 100;
 	document.getElementById("recordingContainer").innerHTML = '';
 }
 
@@ -243,5 +273,5 @@ function showError() {
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
 	document.getElementById("ppm").innerHTML = '';
-        document.getElementById("pcpm").innerHTML = '';
+    document.getElementById("pcpm").innerHTML = '';
 }

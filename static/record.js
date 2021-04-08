@@ -43,7 +43,7 @@ function changeToSampleTwo() {
 }
 
 function changeToSampleThree() {
-	document.getElementById("canonical").innerHTML = "누나는 회사원이에요. 형은 요리사예요.";
+	document.getElementById("canonical").innerHTML = "누나는 회사원이에요. 형은 요리사예요. 저, 제 동생은 모두 대학교에 다녀요.";
 	sample1Button.classList.remove("active");
 	sample2Button.classList.remove("active");
 	sample3Button.classList.add("active");

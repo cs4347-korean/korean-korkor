@@ -57,7 +57,7 @@ function startRecording() {
 	document.getElementById("transcription").innerHTML = 'Your result will appear here when you upload your recording!';
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
-	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-transcription").innerHTML = 'Your result will appear here when you upload your recording!';
 	document.getElementById("google-user-transcription").innerHTML = '';
 	document.getElementById("google-confidence").innerHTML = '';
 	document.getElementById("ros").innerHTML = '';
@@ -264,7 +264,7 @@ function showError() {
 	document.getElementById("user-transcription").innerHTML = '';
 	document.getElementById("confidence").innerHTML = '';
 	document.getElementById("recordingContainer").innerHTML = '';
-	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-transcription").innerHTML = 'An error has occurred. Please try recording again!';
 	document.getElementById("google-user-transcription").innerHTML = '';
 	document.getElementById("google-confidence").innerHTML = '';
 	document.getElementById("ros").innerHTML = '';

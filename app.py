@@ -191,7 +191,7 @@ def upload():
         "AR": stats["AR"],
         "PTR": stats["PTR"],
         "WPM": wpm,
-        "WCPM": wpcm,
+        "WCPM": wcpm,
         "matched_phonemes": matched_phonemes,
         "phoneme_transcription": transcribed_phoneme
     }

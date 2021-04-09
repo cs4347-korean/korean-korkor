@@ -202,7 +202,7 @@ function showResults(json) {
 	var list = json.matched_text;
 	var canonical = document.getElementById('canonical').innerHTML;
 	var korRegex = "[\uac00-\ud7a3]";
-	var finalText = '<strong>Evaluated transcription (based on Kaldi): </strong>';
+	var finalText = '<strong>Evaluated transcription: </strong>';
 	var listCount = 0;
 
 	// Process the text
@@ -223,7 +223,7 @@ function showResults(json) {
 	}
 
 	var googleList = json.google_matched_text;
-	var finalGoogleText = '<strong>Evaluated transcription (based on Google): </strong>';
+	var finalGoogleText = '<strong>Evaluated transcription: </strong>';
 	listCount = 0;  // reset listCount
 
 	// Process the text
@@ -244,11 +244,11 @@ function showResults(json) {
 	}
 	
 	document.getElementById("transcription").innerHTML = finalText;
-	document.getElementById("user-transcription").innerHTML = '<strong>What you read (based on Kaldi): </strong>' + json.transcription;
-	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score (based on Kaldi): </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
+	document.getElementById("user-transcription").innerHTML = '<strong>What you read: </strong>' + json.transcription;
+	document.getElementById("confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
 	document.getElementById("google-transcription").innerHTML = finalGoogleText;
-	document.getElementById("google-user-transcription").innerHTML = '<strong>What you read (based on Google): </strong>' + json.google_transcription;
-	document.getElementById("google-confidence").innerHTML = '<strong>Pronunciation score (based on Google): </strong>' + Math.round((json.google_confidence * json.google_score * 100) * 100) / 100 + ' out of 100';
+	document.getElementById("google-user-transcription").innerHTML = '<strong>What you read: </strong>' + json.google_transcription;
+	document.getElementById("google-confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.google_confidence * json.google_score * 100) * 100) / 100 + ' out of 100';
 	document.getElementById("ros").innerHTML = '<strong>Rate of Speech: </strong>' + Math.round(json.ROS * 100) / 100;
 	document.getElementById("ar").innerHTML = '<strong>Articulation Rate: </strong>' + Math.round(json.AR * 100) / 100;
 	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + Math.round(json.PTR * 100) / 100;

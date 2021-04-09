@@ -51,14 +51,43 @@
           <div class="card-body">
             <h5 class="card-title">Kaldi Results</h5>
             <p class="card-text">
-              <span id="transcription">Your result will appear here when you upload your recording!</span><br/>
-              <span id="user-transcription"></span><br/>
-      	      <span id="confidence"></span><br/>
-      	      <span id="ros"></span><br/>
-      	      <span id="ar"></span><br/>
-      	      <span id="ptr"></span><br/>
-      	      <span id="wpm"></span><br/>
-      	      <span id="wcpm"></span><br/>
+              <span id="instruction">Your result will appear here when you upload your recording!</span>
+              <div class="row">
+                <b>Segmental Accuracy</b>
+                <div class="col">
+                  <p>
+                    <em>Word-level</em><br/>
+                    <span id="transcription"></span><br/>
+                    <span id="user-transcription"></span><br/>
+                  </p>
+                </div>
+                <div class="col">
+                  <p>
+                    <em>Phoneme-level</em><br/>
+                    <span id="transcription-phoneme"></span><br/>
+                    <span id="user-transcription-phoneme"></span><br/>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <b>Fluency</b>
+                <div class="col">
+                  <p>
+                    <em>Word-level</em><br/>
+                    <span id="wpm"></span><br/>
+                    <span id="wcpm"></span><br/>
+                  </p>
+                </div>
+                <div class="col">
+                  <p>
+                    <em>Phoneme-level</em><br/>
+                    <span id="ros"></span><br/>
+                    <span id="ar"></span><br/>
+                    <span id="ptr"></span><br/>
+                  </p>
+                </div>
+              </div>
+      	      
       	      <span id="ppm"></span><br/>
       	      <span id="pcpm"></span>
             </p>
@@ -70,9 +99,11 @@
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h5 class="card-title">Google Speech-to-Text Results</h5>
-      		  <span id="google-transcription">Your result will appear here when you upload your recording!</span><br/>
-              <span id="google-user-transcription"></span><br/>
-              <span id="google-confidence"></span><br/>
+              <p class="card-text">
+                <span id="instruction2">Your result will appear here when you upload your recording!</span><br/>
+        		    <span id="google-transcription"></span><br/>
+                <span id="google-user-transcription"></span><br/>
+              </p>
           </div>
         </div>
       </div>

@@ -115,9 +115,9 @@ def upload():
     f = open("../kaldi/egs/zeroth_korean/s5/exp/tri4_new_align/rate_evaluation.txt", "r")
     arr = f.read().split("\n")
     stats = {}
-    stats['ROS'] = float(arr[0][4:])
-    stats['AR'] = float(arr[1][3:])
-    stats['PTR'] = float(arr[2][4:])
+    stats['ROS'] = float(arr[0][4:]) if type(arr[0][4:]) == float else -1
+    stats['AR'] = float(arr[1][3:]) if type(arr[1][3:]) == float else -1
+    stats['PTR'] = float(arr[2][4:]) if type(arr[2][4:]) == float else -1
     f.close()
 
     # Read transcription
@@ -167,6 +167,7 @@ def upload():
 
     # Match phonemes
     matched_phonemes = align(canonical_phoneme.split(), transcribed_phoneme.split(), "*")
+    '''
     correct_phonemes = 0
     for pair in matched_phonemes:
         if pair[0] == pair[1]:
@@ -175,6 +176,7 @@ def upload():
     # Calculate PPM and phonemes correct per minute
     ppm = len(transcribed_phoneme.split())/(stats['duration']/60)
     pcpm = correct_phonemes/(stats['duration']/60)
+    '''
 
     to_return = {
         "google_transcription": google_trans,
@@ -188,10 +190,8 @@ def upload():
         "ROS": stats["ROS"],
         "AR": stats["AR"],
         "PTR": stats["PTR"],
-        "WPM": wpm,
-        "WCPM": wcpm,
-        "PPM": ppm,
-        "PCPM": pcpm,
+        "matched_phonemes": matched_phonemes,
+        "phoneme_transcription": transcribed_phoneme
     }
     print(to_return)
 

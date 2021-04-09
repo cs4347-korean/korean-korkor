@@ -234,7 +234,7 @@ function showResults(json) {
 		}
 	}
 
-	var phonemeList = json.matched_phoneme;
+	var phonemeList = json.matched_phonemes;
 	var finalPhoneme = '<strong>Original text: </strong>';
 
 	// Process the text

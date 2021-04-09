@@ -241,7 +241,7 @@ function showResults(json) {
 	for (let i = 0; i < phonemeList.length; i++) {
 		var pair = phonemeList[i]
 		if (pair[0] == pair[1]) {
-			finalPhoneme += pair[0]
+			finalPhoneme = finalPhoneme + pair[0] + ' '
 		} else {
 			finalPhoneme += '<strong class="text-danger">' + pair[0] + '</strong>'
 		}

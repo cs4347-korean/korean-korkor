@@ -190,6 +190,8 @@ def upload():
         "ROS": stats["ROS"],
         "AR": stats["AR"],
         "PTR": stats["PTR"],
+        "WPM": wpm,
+        "WCPM": wpcm,
         "matched_phonemes": matched_phonemes,
         "phoneme_transcription": transcribed_phoneme
     }

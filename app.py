@@ -115,9 +115,9 @@ def upload():
     f = open("../kaldi/egs/zeroth_korean/s5/exp/tri4_new_align/rate_evaluation.txt", "r")
     arr = f.read().split("\n")
     stats = {}
-    stats['ROS'] = float(arr[0][4:]) if type(arr[0][4:]) == float else -1
-    stats['AR'] = float(arr[1][3:]) if type(arr[1][3:]) == float else -1
-    stats['PTR'] = float(arr[2][4:]) if type(arr[2][4:]) == float else -1
+    stats['ROS'] = float(arr[0][4:]) if arr[0][4:] != 'nan' else -1
+    stats['AR'] = float(arr[1][3:]) if arr[1][3:] != 'nan' else -1
+    stats['PTR'] = float(arr[2][4:]) if arr[2][4:] != 'nan' else -1
     f.close()
 
     # Read transcription

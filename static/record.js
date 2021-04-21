@@ -55,23 +55,22 @@ function startRecording() {
 	console.log("recordButton clicked");
 	document.getElementById("instruction").innerHTML = 'Your result will appear here when you upload your recording!';
 	document.getElementById("instruction2").innerHTML = 'Your result will appear here when you upload your recording!';
-
 	document.getElementById("recordingContainer").innerHTML = '';
+
 	document.getElementById("transcription").innerHTML = '';
 	document.getElementById("user-transcription").innerHTML = '';
-	// document.getElementById("confidence").innerHTML = '';
-	document.getElementById("google-transcription").innerHTML = '';
-	document.getElementById("google-user-transcription").innerHTML = '';
-	// document.getElementById("google-confidence").innerHTML = '';
+
+	document.getElementById("transcription-phoneme").innerHTML = '';
+	document.getElementById("user-transcription-phoneme").innerHTML = '';
+	
 	document.getElementById("ros").innerHTML = '';
 	document.getElementById("ar").innerHTML = '';
 	document.getElementById("ptr").innerHTML = '';
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
-	// document.getElementById("ppm").innerHTML = '';
-    // document.getElementById("pcpm").innerHTML = '';
-    document.getElementById("transcription-phoneme").innerHTML = '';
-	document.getElementById("user-transcription-phoneme").innerHTML = '';
+
+	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-user-transcription").innerHTML = '';
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -205,16 +204,13 @@ function createDownloadLink(blob) {
 
 function showResults(json) {
 	var list = json.matched_text;
-	// var canonical = document.getElementById('canonical').innerHTML;
-	// var korRegex = "[\uac00-\ud7a3]";
 	var finalText = '<strong>Original text: </strong>';
-	// var listCount = 0;
 
 	// Process the text
 	for (let i = 0; i < list.length; i++) {
 		var pair = list[i]
 		if (pair[0] == pair[1]) {
-			finalText += pair[0]
+			finalText += '<strong class="text-success">' + pair[0] + '</strong>'
 		} else {
 			finalText += '<strong class="text-danger">' + pair[0] + '</strong>'
 		}
@@ -222,7 +218,6 @@ function showResults(json) {
 
 	var googleList = json.google_matched_text;
 	var finalGoogleText = '<strong>Original text: </strong>';
-	listCount = 0;  // reset listCount
 
 	// Process the text
 	for (let i = 0; i < googleList.length; i++) {
@@ -241,21 +236,19 @@ function showResults(json) {
 	for (let i = 0; i < phonemeList.length; i++) {
 		var pair = phonemeList[i]
 		if (pair[0] == pair[1]) {
-			finalPhoneme =+ '<strong class="text-success">' + pair[0] + ' </strong>'
+			finalPhoneme =+ '<strong class="text-success">' + pair[0] + '</strong>'
 		} else {
-			finalPhoneme += '<strong class="text-danger">' + pair[0] + ' </strong>'
+			finalPhoneme += '<strong class="text-danger">' + pair[0] + '</strong>'
 		}
 	}
 
 	document.getElementById("instruction").innerHTML = '';
 	document.getElementById("instruction2").innerHTML = '';
+	document.getElementById("recordingContainer").innerHTML = '';
 	
 	document.getElementById("transcription").innerHTML = finalText;
 	document.getElementById("user-transcription").innerHTML = '<strong>What you read: </strong>' + json.transcription;
-	// document.getElementById("confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.confidence * json.score * 100) * 100) / 100 + ' out of 100';
-	document.getElementById("google-transcription").innerHTML = finalGoogleText;
-	document.getElementById("google-user-transcription").innerHTML = '<strong>What you read: </strong>' + json.google_transcription;
-	// document.getElementById("google-confidence").innerHTML = '<strong>Pronunciation score: </strong>' + Math.round((json.google_confidence * json.google_score * 100) * 100) / 100 + ' out of 100';
+	
 	document.getElementById("transcription-phoneme").innerHTML = finalPhoneme;
 	document.getElementById("user-transcription-phoneme").innerHTML = '<strong>What you read: </strong>' + json.phoneme_transcription;
 
@@ -264,28 +257,28 @@ function showResults(json) {
 	document.getElementById("ptr").innerHTML = '<strong>Phonation Time Ratio: </strong>' + Math.round(json.PTR * 100) / 100;
 	document.getElementById("wpm").innerHTML = '<strong>Word Count Per Minute: </strong>' + Math.round(json.WPM * 100) / 100;
 	document.getElementById("wcpm").innerHTML = '<strong>Word Correct Per Minute : </strong>' + Math.round(json.WCPM * 100) / 100;
-	// document.getElementById("ppm").innerHTML = '<strong>Phoneme Per Minute: </strong>' + Math.round(json.PPM * 100) / 100;
-    // document.getElementById("pcpm").innerHTML = '<strong>Phoneme Correct Per Minute : </strong>' + Math.round(json.PCPM * 100) / 100;
-	document.getElementById("recordingContainer").innerHTML = '';
+
+	document.getElementById("google-transcription").innerHTML = finalGoogleText;
+	document.getElementById("google-user-transcription").innerHTML = '<strong>What you read: </strong>' + json.google_transcription;
 }
 
 function showError() {
 	document.getElementById("instruction").innerHTML = 'An error has occurred. Please try recording again!';
 	document.getElementById("instruction2").innerHTML = 'An error has occurred. Please try recording again!';
+	document.getElementById("recordingContainer").innerHTML = '';
+
 	document.getElementById("transcription").innerHTML = '';
 	document.getElementById("user-transcription").innerHTML = '';
-	// document.getElementById("confidence").innerHTML = '';
-	document.getElementById("recordingContainer").innerHTML = '';
-	document.getElementById("google-transcription").innerHTML = '';
-	document.getElementById("google-user-transcription").innerHTML = '';
-	// document.getElementById("google-confidence").innerHTML = '';
+	
+	document.getElementById("transcription-phoneme").innerHTML = '';
+	document.getElementById("user-transcription-phoneme").innerHTML = '';	
+	
 	document.getElementById("ros").innerHTML = '';
 	document.getElementById("ar").innerHTML = '';
 	document.getElementById("ptr").innerHTML = '';
 	document.getElementById("wpm").innerHTML = '';
 	document.getElementById("wcpm").innerHTML = '';
-	// document.getElementById("ppm").innerHTML = '';
-    // document.getElementById("pcpm").innerHTML = '';
-    document.getElementById("transcription-phoneme").innerHTML = '';
-	document.getElementById("user-transcription-phoneme").innerHTML = '';
+
+	document.getElementById("google-transcription").innerHTML = '';
+	document.getElementById("google-user-transcription").innerHTML = '';
 }

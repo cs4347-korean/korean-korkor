@@ -167,16 +167,6 @@ def upload():
 
     # Match phonemes
     matched_phonemes = align(canonical_phoneme.split(), transcribed_phoneme.split(), "*")
-    '''
-    correct_phonemes = 0
-    for pair in matched_phonemes:
-        if pair[0] == pair[1]:
-            correct_phonemes += 1
-
-    # Calculate PPM and phonemes correct per minute
-    ppm = len(transcribed_phoneme.split())/(stats['duration']/60)
-    pcpm = correct_phonemes/(stats['duration']/60)
-    '''
 
     to_return = {
         "google_transcription": google_trans,
